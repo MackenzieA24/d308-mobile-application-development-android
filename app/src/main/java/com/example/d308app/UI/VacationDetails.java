@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,12 +40,12 @@ public class VacationDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_vacation_details);
-        FloatingActionButton fab=findViewById(R.id.floatingActionButton2);
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton2);
 
 
-        editName=findViewById(R.id.titletext);
-        editPrice=findViewById(R.id.pricetext);
-        ID=getIntent().getIntExtra("id", -1);
+        editName = findViewById(R.id.titletext);
+        editPrice = findViewById(R.id.pricetext);
+        ID = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
         price = getIntent().getDoubleExtra("price", 0.0);
         editName.setText(name);
@@ -53,7 +54,7 @@ public class VacationDetails extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(VacationDetails.this, ExcursionDetails.class);
+                Intent intent = new Intent(VacationDetails.this, ExcursionDetails.class);
                 startActivity(intent);
             }
         });
@@ -73,10 +74,12 @@ public class VacationDetails extends AppCompatActivity {
         }
         excursionAdapter.setExcursions(filteredExcursions);
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_vacation_details, menu);
         return true;
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         Vacation vacation;
         if (item.getItemId() == R.id.vacationsave) {
@@ -87,17 +90,22 @@ public class VacationDetails extends AppCompatActivity {
                 vacation = new Vacation(ID, editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
                 repository.insert(vacation);
                 this.finish();
-            }
-            else{
+            } else {
                 vacation = new Vacation(ID, editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
                 repository.update(vacation);
                 this.finish();
             }
-        }else if(item.getItemId() == R.id.vacationdelete) {
-            vacation = new Vacation(ID, editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
-            repository.delete(vacation);
-            this.finish();
+        } else if (item.getItemId() == R.id.vacationdelete) {
+            List<Excursion> excursions = repository.getAssociatedExcursions(ID);
+            if (excursions.isEmpty()) {
+                vacation = new Vacation(ID, editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
+                repository.delete(vacation);
+                this.finish();
+            } else {
+                Toast.makeText(this, "Cannot delete. Excursions are associated with this vacation.", Toast.LENGTH_SHORT).show();
+            }
         }
-        return true;
+                return true;
         }
     }
+
