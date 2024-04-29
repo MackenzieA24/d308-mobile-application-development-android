@@ -76,9 +76,9 @@ public class Vacations extends AppCompatActivity {
         if (item.getItemId() == R.id.mysample) {
             repository=new Repository(getApplication());
             // Toast.makeText(Vacations.this, "put in sample data", Toast.LENGTH_SHORT).show();
-            Vacation vacation = new Vacation(0, "Italy", 1000.0);
+            Vacation vacation = new Vacation(0, "Italy", "Ritz Carlton", "10/10/2024", "10/17/2024");
             repository.insert(vacation);
-            vacation = new Vacation(0, "Bermuda", 1000.0);
+            vacation = new Vacation(0, "Bermuda", "Sea Breeze Inn", "06/13/2024", "06/20/2024");
             repository.insert(vacation);
             Excursion excursion=new Excursion(0, "Bicycle Tour", 100.0, 1);
             repository.insert(excursion);

@@ -1,6 +1,8 @@
 package com.example.d308app.UI;
 
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.d308app.R;
+import com.example.d308app.database.Repository;
 
 public class ExcursionDetails extends AppCompatActivity {
 
@@ -22,5 +25,6 @@ public class ExcursionDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
     }
 }

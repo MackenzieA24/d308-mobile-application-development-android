@@ -8,13 +8,28 @@ public class Vacation {
     @PrimaryKey(autoGenerate = true)
     private int ID;
     private String vacationName;
-    private double price;
+    private String hotel;
+    private String startDate;
+    private String endDate;
+
+    public String getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(String hotel) {
+        this.hotel = hotel;
+    }
+
     private int excursionID;
 
-    public Vacation(int ID, String vacationName, double price) {
+
+
+    public Vacation(int ID, String vacationName, String hotel, String startDate, String endDate) {
         this.ID = ID;
         this.vacationName = vacationName;
-        this.price = price;
+        this.hotel = hotel;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.excursionID = excursionID;
     }
 
@@ -34,12 +49,21 @@ public class Vacation {
         this.vacationName = vacationName;
     }
 
-    public double getPrice() {
-        return price;
+
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public int getExcursionID() {

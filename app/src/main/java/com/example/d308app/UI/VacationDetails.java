@@ -29,10 +29,15 @@ import java.util.List;
 
 public class VacationDetails extends AppCompatActivity {
     String name;
-    double price;
+    String hotel;
+    String startDate;
+    String endDate;
     int ID;
     EditText editName;
-    EditText editPrice;
+    EditText editHotel;
+
+    EditText editStartDate;
+    EditText editEndDate;
     Repository repository;
 
     @Override
@@ -44,17 +49,24 @@ public class VacationDetails extends AppCompatActivity {
 
 
         editName = findViewById(R.id.titletext);
-        editPrice = findViewById(R.id.pricetext);
+        editHotel = findViewById(R.id.hotel);
+        editStartDate = findViewById(R.id.startdate);
+        editEndDate = findViewById(R.id.enddate);
         ID = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
-        price = getIntent().getDoubleExtra("price", 0.0);
+        hotel = getIntent().getStringExtra("hotel");
+        startDate = getIntent().getStringExtra("startDate");
+        endDate = getIntent().getStringExtra("endDate");
         editName.setText(name);
-        editPrice.setText(Double.toString(price));
+        editHotel.setText(hotel);
+        editStartDate.setText(startDate);
+        editEndDate.setText(endDate);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(VacationDetails.this, ExcursionDetails.class);
+                intent.putExtra("vacationID", ID);
                 startActivity(intent);
             }
         });
@@ -87,18 +99,18 @@ public class VacationDetails extends AppCompatActivity {
                 if (repository.getmAllVacations().size() == 0) ID = 1;
                 else
                     ID = repository.getmAllVacations().get(repository.getmAllVacations().size() - 1).getID() + 1;
-                vacation = new Vacation(ID, editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
+                vacation = new Vacation(ID, editName.getText().toString(), editHotel.getText().toString(), editStartDate.getText().toString(), editEndDate.getText().toString());
                 repository.insert(vacation);
                 this.finish();
             } else {
-                vacation = new Vacation(ID, editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
+                vacation = new Vacation(ID, editName.getText().toString(), editHotel.getText().toString(), editStartDate.getText().toString(), editEndDate.getText().toString());
                 repository.update(vacation);
                 this.finish();
             }
         } else if (item.getItemId() == R.id.vacationdelete) {
             List<Excursion> excursions = repository.getAssociatedExcursions(ID);
             if (excursions.isEmpty()) {
-                vacation = new Vacation(ID, editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
+                vacation = new Vacation(ID, editName.getText().toString(), editHotel.getText().toString(), editStartDate.getText().toString(), editEndDate.getText().toString());
                 repository.delete(vacation);
                 this.finish();
             } else {
