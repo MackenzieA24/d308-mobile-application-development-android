@@ -8,7 +8,7 @@ public class Excursion {
     @PrimaryKey(autoGenerate = true)
     private int ID;
     private String excursionName;
-    private double price;
+    private String excursionDate;
 
     public int getVacationID() {
         return vacationID;
@@ -20,10 +20,10 @@ public class Excursion {
 
     private int vacationID;
 
-    public Excursion(int ID, String excursionName, double price, int vacationID) {
+    public Excursion(int ID, String excursionName, String excursionDate, int vacationID) {
         this.ID = ID;
         this.excursionName = excursionName;
-        this.price = price;
+        this.excursionDate = excursionDate;
         this.vacationID = vacationID;
     }
 
@@ -43,11 +43,11 @@ public class Excursion {
         this.excursionName = excursionName;
     }
 
-    public double getPrice() {
-        return price;
+    public String getExcursionDate() {
+        return excursionDate;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setExcursionDate(String excursionDate) {
+        this.excursionDate = excursionDate;
     }
 }

@@ -80,9 +80,9 @@ public class Vacations extends AppCompatActivity {
             repository.insert(vacation);
             vacation = new Vacation(0, "Bermuda", "Sea Breeze Inn", "06/13/2024", "06/20/2024");
             repository.insert(vacation);
-            Excursion excursion=new Excursion(0, "Bicycle Tour", 100.0, 1);
+            Excursion excursion=new Excursion(0, "Bicycle Tour", "06/15/2024", 1);
             repository.insert(excursion);
-            excursion=new Excursion(0, "Cheese Tasting", 75.0, 1);
+            excursion=new Excursion(0, "Cheese Tasting", "10/15/2024", 1);
             repository.insert(excursion);
             return true;
         }
