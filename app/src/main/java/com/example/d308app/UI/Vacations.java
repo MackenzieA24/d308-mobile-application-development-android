@@ -11,12 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.d308app.R;
 import com.example.d308app.database.Repository;
 import com.example.d308app.entities.Excursion;
 import com.example.d308app.entities.Vacation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class Vacations extends AppCompatActivity {
     private Repository repository;
@@ -34,8 +38,15 @@ public class Vacations extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        RecyclerView recyclerView=findViewById(R.id.recyclerview);
+        repository=new Repository(getApplication());
+        List<Vacation> allVacations=repository.getmAllVacations();
+        final VacationAdapter vacationAdapter=new VacationAdapter(this);
+        recyclerView.setAdapter(vacationAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        vacationAdapter.setVacations(allVacations);
 
-        System.out.println(getIntent().getStringExtra("test"));
+        //System.out.println(getIntent().getStringExtra("test"));
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -48,6 +59,17 @@ public class Vacations extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_vacations, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Vacation> allVacations=repository.getmAllVacations();
+        RecyclerView recyclerView=findViewById(R.id.recyclerview);
+        final VacationAdapter vacationAdapter=new VacationAdapter(this);
+        recyclerView.setAdapter(vacationAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        vacationAdapter.setVacations(allVacations);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
