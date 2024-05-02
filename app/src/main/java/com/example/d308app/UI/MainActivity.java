@@ -14,9 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.d308app.R;
 
 public class MainActivity extends AppCompatActivity {
-//comment
-    //comment
-    //comment
+
+    public static int numAlert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

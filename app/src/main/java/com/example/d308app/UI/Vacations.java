@@ -76,13 +76,13 @@ public class Vacations extends AppCompatActivity {
         if (item.getItemId() == R.id.mysample) {
             repository=new Repository(getApplication());
             // Toast.makeText(Vacations.this, "put in sample data", Toast.LENGTH_SHORT).show();
-            Vacation vacation = new Vacation(0, "Italy", "Ritz Carlton", "10/10/2024", "10/17/2024");
+            Vacation vacation = new Vacation(0, "Italy", "Ritz Carlton", "10/10/24", "10/17/24");
             repository.insert(vacation);
-            vacation = new Vacation(0, "Bermuda", "Sea Breeze Inn", "06/13/2024", "06/20/2024");
+            vacation = new Vacation(0, "Bermuda", "Sea Breeze Inn", "06/13/24", "06/20/24");
             repository.insert(vacation);
-            Excursion excursion=new Excursion(0, "Bicycle Tour", "06/15/2024", 1);
+            Excursion excursion=new Excursion(0, "Bicycle Tour", "06/15/24", 1);
             repository.insert(excursion);
-            excursion=new Excursion(0, "Cheese Tasting", "10/15/2024", 1);
+            excursion=new Excursion(0, "Cheese Tasting", "10/15/24", 1);
             repository.insert(excursion);
             return true;
         }

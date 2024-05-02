@@ -20,7 +20,7 @@ public class Vacation {
         this.hotel = hotel;
     }
 
-    private int excursionID;
+
 
 
 
@@ -30,7 +30,6 @@ public class Vacation {
         this.hotel = hotel;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.excursionID = excursionID;
     }
 
     public int getID() {
@@ -66,11 +65,5 @@ public class Vacation {
         this.endDate = endDate;
     }
 
-    public int getExcursionID() {
-        return excursionID;
-    }
 
-    public void setExcursionID(int excursionID) {
-        this.excursionID = excursionID;
-    }
 }

@@ -124,5 +124,25 @@ public class Repository {
             e.printStackTrace();
         }
     }
+    public String getStartDateForVacation(int ID) {
+        return mVacationDAO.getStartDateForVacation(ID);
+    }
+    public String getEndDateForVacation(int Id) {
+        return mVacationDAO.getEndDateForVacation(Id);
+    }
 
-}
+    public List<Vacation> getmAllExcursions() {
+        databaseExecutor.execute(()->{
+            mAllVacations=mVacationDAO.getAllVacations();
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return mAllVacations;
+     }
+    }
+
