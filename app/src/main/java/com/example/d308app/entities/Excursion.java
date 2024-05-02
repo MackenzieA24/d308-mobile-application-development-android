@@ -20,11 +20,32 @@ public class Excursion {
 
     private int vacationID;
 
-    public Excursion(int ID, String excursionName, String excursionDate, int vacationID) {
+    private String vacayStartDate;
+    private String vacayEndDate;
+
+    public String getVacayStartDate() {
+        return vacayStartDate;
+    }
+
+    public void setVacayStartDate(String vacayStartDate) {
+        this.vacayStartDate = vacayStartDate;
+    }
+
+    public String getVacayEndDate() {
+        return vacayEndDate;
+    }
+
+    public void setVacayEndDate(String vacayEndDate) {
+        this.vacayEndDate = vacayEndDate;
+    }
+
+    public Excursion(int ID, String excursionName, String excursionDate, int vacationID, String vacayStartDate, String vacayEndDate) {
         this.ID = ID;
         this.excursionName = excursionName;
         this.excursionDate = excursionDate;
         this.vacationID = vacationID;
+        this.vacayStartDate = vacayStartDate;
+        this.vacayEndDate = vacayEndDate;
     }
 
     public int getID() {

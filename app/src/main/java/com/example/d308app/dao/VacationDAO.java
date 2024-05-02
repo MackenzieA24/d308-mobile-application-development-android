@@ -1,5 +1,6 @@
 package com.example.d308app.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Dao
 public interface VacationDAO {
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Vacation vacation);
 
@@ -26,10 +28,6 @@ public interface VacationDAO {
     @Query("SELECT * FROM Vacation ORDER BY ID ASC")
     List<Vacation> getAllVacations();
 
-    @Query("SELECT startDate FROM vacation WHERE id=:ID")
-    String getStartDateForVacation(int ID);
-
-    @Query("SELECT endDate FROM vacation WHERE id=:ID")
-    String getEndDateForVacation(int ID);
-
+    @Query("SELECT * FROM Vacation WHERE ID = :id")
+    LiveData<Vacation> getVacationById(int id);
 }

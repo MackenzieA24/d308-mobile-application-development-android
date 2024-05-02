@@ -2,6 +2,8 @@ package com.example.d308app.database;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.d308app.dao.ExcursionDAO;
 import com.example.d308app.dao.VacationDAO;
 import com.example.d308app.entities.Excursion;
@@ -14,6 +16,7 @@ import java.util.concurrent.Executors;
 public class Repository {
     private ExcursionDAO mExcursionDAO;
     private VacationDAO mVacationDAO;
+    private LiveData<Vacation> mVacation;
 
     private List<Vacation> mAllVacations;
     private List<Excursion> mAllExcursions;
@@ -26,7 +29,10 @@ public class Repository {
         mExcursionDAO=db.excursionDAO();
         mVacationDAO=db.vacationDAO();
     }
-
+    public LiveData<Vacation> getVacationById(int id){
+        mVacation = mVacationDAO.getVacationById(id);
+        return mVacation;
+    }
     public List<Vacation> getmAllVacations(){
         databaseExecutor.execute(()->{
             mAllVacations=mVacationDAO.getAllVacations();
@@ -94,6 +100,7 @@ public class Repository {
         }
         return mAllExcursions;
     }
+
     public void insert(Excursion excursion){
         databaseExecutor.execute(()->{
             mExcursionDAO.insert(excursion);
@@ -124,13 +131,6 @@ public class Repository {
             e.printStackTrace();
         }
     }
-    public String getStartDateForVacation(int ID) {
-        return mVacationDAO.getStartDateForVacation(ID);
-    }
-    public String getEndDateForVacation(int Id) {
-        return mVacationDAO.getEndDateForVacation(Id);
-    }
-
     public List<Vacation> getmAllExcursions() {
         databaseExecutor.execute(()->{
             mAllVacations=mVacationDAO.getAllVacations();
