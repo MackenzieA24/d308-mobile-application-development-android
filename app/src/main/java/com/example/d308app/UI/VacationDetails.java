@@ -154,7 +154,15 @@ public class VacationDetails extends AppCompatActivity {
         }
         excursionAdapter.setExcursions(filteredExcursions);
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Excursion> filteredExcursions = repository.getAssociatedExcursions(ID);
+        RecyclerView recyclerView = findViewById(R.id.excursionrecyclerview);
+        ExcursionAdapter excursionAdapter = (ExcursionAdapter) recyclerView.getAdapter();
+        excursionAdapter.setExcursions(filteredExcursions);
+        excursionAdapter.notifyDataSetChanged();
+    }
     private void updateStartDateLabel() {
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);

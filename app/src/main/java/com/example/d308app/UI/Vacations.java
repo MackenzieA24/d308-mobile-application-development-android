@@ -54,13 +54,6 @@ public class Vacations extends AppCompatActivity {
             return insets;
         });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_vacations, menu);
-        return true;
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -71,26 +64,4 @@ public class Vacations extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vacationAdapter.setVacations(allVacations);
     }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.mysample) {
-            repository=new Repository(getApplication());
-            // Toast.makeText(Vacations.this, "put in sample data", Toast.LENGTH_SHORT).show();
-            Vacation vacation = new Vacation(0, "Italy", "Ritz Carlton", "10/10/24", "10/17/24");
-            repository.insert(vacation);
-            vacation = new Vacation(0, "Bermuda", "Sea Breeze Inn", "06/13/24", "06/20/24");
-            repository.insert(vacation);
-            Excursion excursion=new Excursion(0, "Bicycle Tour", "06/15/24", 1, "10/10/24", "10/17/24");
-            repository.insert(excursion);
-            excursion=new Excursion(0, "Cheese Tasting", "10/15/24", 1, "10/10/24", "10/17/24");
-            repository.insert(excursion);
-            return true;
-        }
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
-            return true;
-        }
-        return true;
-    }
-
 }
