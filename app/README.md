@@ -31,7 +31,9 @@ input. For example, a vacation with an associated excursion cannot be deleted. T
 validations as well to ensure that vacation end dates take place after vacation start dates, and an
 excursion date must take place during its associated vacation.
 
-Android Version for signed APK deployment: Android 13.0 “Tiramisu”
+Android Version for signed APK deployment: targetSdk = 34
+versionCode = 1
+versionName = "1.0"
 
 Link to GitLab
 repository: https://gitlab.com/wgu-gitlab-environment/student-repos/maylor5/d308-mobile-application-development-android/-/tree/working_branch?ref_type=heads
