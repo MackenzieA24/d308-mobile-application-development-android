@@ -18,7 +18,7 @@ import java.util.List;
 public class VacationAdapter extends RecyclerView.Adapter<VacationAdapter.VacationViewHolder> {
 
     private List<Vacation> mVacations;
-
+    //comment
     private final Context context;
     private final LayoutInflater mInflater;
 
