@@ -30,4 +30,7 @@ public interface VacationDAO {
 
     @Query("SELECT * FROM Vacation WHERE ID = :id")
     LiveData<Vacation> getVacationById(int id);
+
+    @Query("SELECT * FROM Vacation WHERE vacationName LIKE :query")
+    LiveData<List<Vacation>> searchVacationsByName(String query);
 }

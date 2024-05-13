@@ -8,6 +8,7 @@ import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,6 +25,9 @@ import java.util.List;
 
 public class Vacations extends AppCompatActivity {
     private Repository repository;
+    private VacationAdapter vacationAdapter;
+    private SearchView searchView;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +42,31 @@ public class Vacations extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        RecyclerView recyclerView=findViewById(R.id.recyclerview);
-        repository=new Repository(getApplication());
-        List<Vacation> allVacations=repository.getmAllVacations();
-        final VacationAdapter vacationAdapter=new VacationAdapter(this);
+        recyclerView = findViewById(R.id.recyclerview);
+        searchView = findViewById(R.id.search_vacation);
+        repository = new Repository(getApplication());
+
+        // Initialize the adapter once
+        vacationAdapter = new VacationAdapter(this);
         recyclerView.setAdapter(vacationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        vacationAdapter.setVacations(allVacations);
+
+        // Load data into adapter
+        loadVacations();
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false; // No action on submit for now
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterVacations(newText);
+                return true; // Text change handled
+            }
+        });
 
         //System.out.println(getIntent().getStringExtra("test"));
 
@@ -54,14 +76,25 @@ public class Vacations extends AppCompatActivity {
             return insets;
         });
     }
+    private void loadVacations() {
+        // Asynchronous fetch of data to ensure UI does not block
+        repository.getmAllVacationsAsync(vacations -> {
+            // Ensure this runs on the UI thread, especially if coming from a background thread
+            runOnUiThread(() -> {
+                vacationAdapter.setVacations(vacations);
+            });
+        });
+    }
+    private void filterVacations(String text) {
+        repository.getFilteredVacations(text).observe(this, vacations -> {
+            vacationAdapter.setVacations(vacations);
+        });
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        List<Vacation> allVacations=repository.getmAllVacations();
-        RecyclerView recyclerView=findViewById(R.id.recyclerview);
-        final VacationAdapter vacationAdapter=new VacationAdapter(this);
-        recyclerView.setAdapter(vacationAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        vacationAdapter.setVacations(allVacations);
+        loadVacations();
     }
 }

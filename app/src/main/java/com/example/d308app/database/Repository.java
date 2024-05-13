@@ -12,6 +12,7 @@ import com.example.d308app.entities.Vacation;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 public class Repository {
     private ExcursionDAO mExcursionDAO;
@@ -144,5 +145,19 @@ public class Repository {
 
         return mAllVacations;
      }
+    public LiveData<List<Vacation>> getFilteredVacations(String text) {
+        String query = "%" + text + "%";
+        return mVacationDAO.searchVacationsByName(query);
     }
+    public void getmAllVacationsAsync(Consumer<List<Vacation>> callback) {
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        service.submit(() -> {
+            List<Vacation> vacations = mVacationDAO.getAllVacations(); // Ensure this method does not run on the UI thread
+            callback.accept(vacations);
+        });
+        service.shutdown();
+    }
+
+
+}
 
