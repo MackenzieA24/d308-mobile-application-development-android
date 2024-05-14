@@ -235,6 +235,8 @@ public class VacationDetails extends AppCompatActivity {
         Vacation vacation;
         String startDateInput = editStartDate.getText().toString();
         String endDateInput = editEndDate.getText().toString();
+        SimpleDateFormat logDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+
         if (item.getItemId() == R.id.vacationsave) {
             if (!validateDateFormat(startDateInput)) {
                 Log.d("DateValidation", "Invalid start date format: " + startDateInput);
@@ -287,6 +289,13 @@ public class VacationDetails extends AppCompatActivity {
             sentIntent.setType("text/plain");
             Intent shareIntent=Intent.createChooser(sentIntent,null);
             startActivity(shareIntent);
+
+            Log.d("ShareLog", "Report Generated at: " + logDateFormat.format(new Date()));
+            Log.d("ShareLog", "Vacation Name: " + editName.getText().toString());
+            Log.d("ShareLog", "Start Date: " + editStartDate.getText().toString());
+            Log.d("ShareLog", "End Date: " + editEndDate.getText().toString());
+            Log.d("ShareLog", "Hotel: " + editHotel.getText().toString());
+
             return true;
         }
         if (item.getItemId() == R.id.notifystart) {
